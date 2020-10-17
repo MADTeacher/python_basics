@@ -1,2 +1,2 @@
 # python_basics
-Code example from the book "Basics of the Python programming language"
+Code examples from my book "Basics of the Python programming language"
