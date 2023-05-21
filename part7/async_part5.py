@@ -13,7 +13,7 @@ async def main(loop):
     print(f'Результат работы задачи: {return_value}')
 
 if __name__ == "__main__":
-    event_loop = asyncio.get_event_loop()
+    event_loop = asyncio.new_event_loop()
     try:
         event_loop.run_until_complete(main(event_loop))
     finally:

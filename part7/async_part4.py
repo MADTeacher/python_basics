@@ -15,9 +15,9 @@ async def main(all_done):
     all_done.set_result({"-_-": 10, "^_^": 20})
 
 if __name__ == "__main__":
-    event_loop = asyncio.get_event_loop()
+    event_loop = asyncio.new_event_loop()
     try:
-        all_done = asyncio.Future()
+        all_done = event_loop.create_future()
         event_loop.run_until_complete(main(all_done))
     finally:
         print(f"Основной процесс: {all_done.result()}")

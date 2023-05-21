@@ -1,18 +1,21 @@
-import asyncio
+import asyncio 
+import functools
 
-async def first_function():
-    print("first_function start")
-    for it in range(7):
-        await asyncio.sleep(1.2)
-        print(f"first_function {it}")
+def callback(arg, kwarg='default'):
+    print(f'Bызов callback-функции arg= {arg} ' f'kwarg = {kwarg}')
 
-async def second_function():
-    print("second_function start")
-    for it in range(10):
-        await asyncio.sleep(0.9)
-        print(f"second_function {it}")
+async def main(loop):
+    print(f'Регистрируем callback-функцию')
+    loop.call_soon(callback, 1)
+    wrapped = functools.partial(callback, kwarg='A_A')
+    loop.call_soon(wrapped, "-_-") 
+    await asyncio.sleep(0.2)
 
 if __name__ == "__main__":
-    loop = asyncio.get_event_loop()
-    my_functions = asyncio.wait([first_function(), second_function()])
-    loop.run_until_complete(my_functions)
+    event_loop = asyncio.new_event_loop() 
+    try:
+        print('Запуск цикла событий') 
+        event_loop.run_until_complete(main(event_loop)) 
+    finally:
+        print('Остановка цикла событий') 
+        event_loop.close()
